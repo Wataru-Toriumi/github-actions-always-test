@@ -1,0 +1,19 @@
+name: "Test Composite IF Action"
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: "Composite Action 実行 (conditionFlag=false)"
+        uses: ./.github/actions/composite-if-action
+        with:
+          conditionFlag: "false"
+      - name: "Composite Action 実行 (conditionFlag=true)"
+        uses: ./.github/actions/composite-if-action
+        with:
+          conditionFlag: "true"

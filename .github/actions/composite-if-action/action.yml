@@ -1,0 +1,24 @@
+name: "Composite IF Action"
+description: "Composite Action で always() と input による if 条件の挙動確認サンプル"
+inputs:
+  conditionFlag:
+    description: "true を指定すると条件付きステップが実行されます"
+    required: false
+    default: "false"
+runs:
+  using: "composite"
+  steps:
+    - name: "ステップ: 常に実行 (always())"
+      if: ${{ always() }}
+      shell: bash
+      run: echo "このステップは常に実行されます。"
+
+    - name: "ステップ: input に基づく条件実行"
+      if: ${{ inputs.conditionFlag == 'true' }}
+      shell: bash
+      run: echo "conditionFlag が true なので、このステップが実行されました。"
+
+    - name: "ステップ: always() と input の組み合わせ"
+      if: ${{ always() && inputs.conditionFlag == 'true' }}
+      shell: bash
+      run: echo "常に評価される always() と、conditionFlag のチェックの組み合わせです。"
