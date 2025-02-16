@@ -17,12 +17,19 @@ jobs:
         uses: ./.github/actions/composite-if-action
         with:
           conditionFlag: "true"
-  failure-test:
+  failure:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: "失敗ステップ"
-        run: exit 1
+        run: |
+          echo "このステップは常に失敗します。"
+          exit 1
+  failure-test:
+    runs-on: ubuntu-latest
+    needs: failure
+    steps:
+      - uses: actions/checkout@v3
       - name: "Composite Action 実行 (conditionFlag=false)"
         uses: ./.github/actions/composite-if-action
         with:
